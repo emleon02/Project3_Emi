@@ -12,9 +12,7 @@ using namespace std;
 void ReadCSV(Playlist& p, const string& opt, const string& adj, bool exp, int year, const string& artist){
     ifstream inFile;
 
-    // Shell sort is taking a very long time for the whole file, it works for smaller data sets
     inFile.open("tracks_features.csv");
-    //inFile.open("/Users/emilialeon/Desktop/tester.csv");
 
     string line;
     getline(inFile, line); // ignore header
