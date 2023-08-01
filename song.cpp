@@ -144,10 +144,10 @@ void Song::Deserialize(istringstream& stream) {
     getline(stream, token, ',');
 
     if (token.size() == 4){
-        this->explicit_cont = true;
+        this->exp = true;
     }
     else
-        this->explicit_cont = false;
+        this->exp = false;
 
     getline(stream, token, ',');
 
