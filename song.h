@@ -21,9 +21,8 @@ public:
 
 class Playlist{
 public:
-    Song* s;
     vector<Song*> songs;
-    Playlist() : songs(){}
+    Playlist() : songs({}){}
     void Insert(Song* song, const string& option, const string& adj, bool exp, int year, const string& artist);
     vector<int> Ratings();
     void PrintAll();
