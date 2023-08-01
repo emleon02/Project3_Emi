@@ -116,7 +116,7 @@ void Playlist::PrintN(int n){
 
 }
 
-void Playlist::Song::Deserialize(istringstream& stream) {
+void Song::Deserialize(istringstream& stream) {
     string token;
     getline(stream, token, ','); // ignore id
 
