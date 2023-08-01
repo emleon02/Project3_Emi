@@ -95,7 +95,7 @@ void Playlist::PrintN(int n){
     if (n > songs.size()){
         cout << "Your playlist has " << songs.size() << " songs!" << endl;
 
-        for (int i = songs.size(); i > 0; i--) {
+        for (int i = songs.size() - 1; i > 0; i--) {
             // FIXME for Event and mood - giving an exit code 139 (interrupted by signal 11: SIGSEGV)
             cout << "Title: " << songs[i]->name << endl;
             cout << "Artist: " << songs[i]->artist << endl;
@@ -106,7 +106,7 @@ void Playlist::PrintN(int n){
     else{
         cout << "Your playlist has " << n << " songs!" << endl;
 
-        for (int i = n; i > 0; i--){
+        for (int i = n - 1; i > 0; i--){
             // FIXME for Event and mood - giving an exit code 139 (interrupted by signal 11: SIGSEGV)
             cout << "Title: " << songs[i]->name << endl;
             cout << "Artist: " << songs[i]->artist << endl;
