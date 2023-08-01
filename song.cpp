@@ -99,7 +99,6 @@ void Playlist::PrintN(int n){
             cout << "Title: " << songs[i]->name << endl;
             cout << "Artist: " << songs[i]->artist << endl;
             cout << "Album: " << songs[i]->album << endl << endl;
-            cout << "Rating: " << songs[i]->rating << endl << endl;
         }
     }
     else{
@@ -109,7 +108,6 @@ void Playlist::PrintN(int n){
             cout << "Title: " << songs[i]->name << endl;
             cout << "Artist: " << songs[i]->artist << endl;
             cout << "Album: " << songs[i]->album << endl << endl;
-            cout << "Rating: " << songs[i]->rating << endl << endl;
 
         }
     }
