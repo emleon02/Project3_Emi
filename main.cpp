@@ -51,7 +51,7 @@ int main() {
         if (result == 0)
             break;
 
-        // Decade
+            // Decade
         else if (result == 1){
             cout << "Enter Decade (ex. 1950): " << endl;
             cin >> result;
@@ -69,17 +69,17 @@ int main() {
 
             ReadCSV(p, "decade", "any", exp_cont, result, "any");
 
-           auto start = chrono::high_resolution_clock::now();
-           ShellSort(p.songs, p.songs.size());
-           auto stop = chrono::high_resolution_clock::now();
-           auto timeShell = chrono::duration_cast<chrono::microseconds>(stop - start);
+            auto start = chrono::high_resolution_clock::now();
+            p2.songs = MergeSort(p.songs);
+            auto stop = chrono::high_resolution_clock::now();
+            auto timeMerge = chrono::duration_cast<chrono::microseconds>(stop - start);
 
-           start = chrono::high_resolution_clock::now();
-           p2.songs = MergeSort(p.songs);
-           stop = chrono::high_resolution_clock::now();
-           auto timeMerge = chrono::duration_cast<chrono::microseconds>(stop - start);
+            start = chrono::high_resolution_clock::now();
+            ShellSort(p.songs, p.songs.size());
+            stop = chrono::high_resolution_clock::now();
+            auto timeShell = chrono::duration_cast<chrono::microseconds>(stop - start);
 
-           cout << endl;
+            cout << endl;
             if (num != "all"){
                 p2.PrintN(stoi(num));
             }
@@ -88,12 +88,12 @@ int main() {
             p.songs.clear();
             result = 0;
 
-            cout << "Shell Sort time: " << timeShell.count() << " microseconds" << endl;
             cout << "Merge Sort time: " << timeMerge.count() << " microseconds" << endl;
+            cout << "Shell Sort time: " << timeShell.count() << " microseconds" << endl;
             cout << endl;
         }
 
-        // mood
+            // mood
         else if (result == 2){
             cout << "Select Mood: " << endl;
             cout << "1. Happy " << endl; // high energy A major, Bb major c major
@@ -132,14 +132,14 @@ int main() {
                 break;
 
             auto start = chrono::high_resolution_clock::now();
-            ShellSort(p.songs, p.songs.size());
+            p2.songs = MergeSort(p.songs);
             auto stop = chrono::high_resolution_clock::now();
-            auto timeShell = chrono::duration_cast<chrono::microseconds>(stop - start);
+            auto timeMerge = chrono::duration_cast<chrono::microseconds>(stop - start);
 
             start = chrono::high_resolution_clock::now();
-            p2.songs = MergeSort(p.songs);
+            ShellSort(p.songs, p.songs.size());
             stop = chrono::high_resolution_clock::now();
-            auto timeMerge = chrono::duration_cast<chrono::microseconds>(stop - start);
+            auto timeShell = chrono::duration_cast<chrono::microseconds>(stop - start);
 
             cout << endl;
             if (num != "all")
@@ -150,12 +150,12 @@ int main() {
             p.songs.clear();
             result = 0;
 
-            cout << "Shell Sort time: " << timeShell.count() << " microseconds" << endl;
             cout << "Merge Sort time: " << timeMerge.count() << " microseconds" << endl;
+            cout << "Shell Sort time: " << timeShell.count() << " microseconds" << endl;
             cout << endl;
         }
 
-        // Event
+            // Event
         else if (result == 3){
             cout << "Enter Event: " << endl;
             cout << "1. Dinner Party" << endl;  // low dance + fam friendly
@@ -190,14 +190,14 @@ int main() {
             }
 
             auto start = chrono::high_resolution_clock::now();
-            ShellSort(p.songs, p.songs.size());
+            p2.songs = MergeSort(p.songs);
             auto stop = chrono::high_resolution_clock::now();
-            auto timeShell = chrono::duration_cast<chrono::microseconds>(stop - start);
+            auto timeMerge = chrono::duration_cast<chrono::microseconds>(stop - start);
 
             start = chrono::high_resolution_clock::now();
-            p2.songs = MergeSort(p.songs);
+            ShellSort(p.songs, p.songs.size());
             stop = chrono::high_resolution_clock::now();
-            auto timeMerge = chrono::duration_cast<chrono::microseconds>(stop - start);
+            auto timeShell = chrono::duration_cast<chrono::microseconds>(stop - start);
 
             cout << endl;
             if (num != "all")
@@ -208,12 +208,12 @@ int main() {
             p.songs.clear();
             result = 0;
 
-            cout << "Shell Sort time: " << timeShell.count() << " microseconds" << endl;
             cout << "Merge Sort time: " << timeMerge.count() << " microseconds" << endl;
+            cout << "Shell Sort time: " << timeShell.count() << " microseconds" << endl;
             cout << endl;
         }
 
-        // Artist
+            // Artist
         else if (result == 4){
             cout << "Enter Artist: " << endl;
             cin.ignore();
@@ -235,14 +235,14 @@ int main() {
             ReadCSV(p, "artist", "any", exp_cont, year, artist);
 
             auto start = chrono::high_resolution_clock::now();
-            ShellSort(p.songs, p.songs.size());
+            p2.songs = MergeSort(p.songs);
             auto stop = chrono::high_resolution_clock::now();
-            auto timeShell = chrono::duration_cast<chrono::microseconds>(stop - start);
+            auto timeMerge = chrono::duration_cast<chrono::microseconds>(stop - start);
 
             start = chrono::high_resolution_clock::now();
-            p2.songs = MergeSort(p.songs);
+            ShellSort(p.songs, p.songs.size());
             stop = chrono::high_resolution_clock::now();
-            auto timeMerge = chrono::duration_cast<chrono::microseconds>(stop - start);
+            auto timeShell = chrono::duration_cast<chrono::microseconds>(stop - start);
 
             cout << endl;
             if (num != "all")
@@ -253,8 +253,8 @@ int main() {
             p.songs.clear();
             result = 0;
 
-            cout << "Shell Sort time: " << timeShell.count() << " microseconds" << endl;
             cout << "Merge Sort time: " << timeMerge.count() << " microseconds" << endl;
+            cout << "Shell Sort time: " << timeShell.count() << " microseconds" << endl;
             cout << endl;
         }
     }
