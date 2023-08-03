@@ -9,6 +9,7 @@ struct Song {
     bool exp;
     int dance;
     int key;
+    int mode;
     int energy;
     int loud;
     int year;
