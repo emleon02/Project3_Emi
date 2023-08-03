@@ -101,6 +101,7 @@ int main() {
             cout << "3. Relaxed " << endl; // mid-energy ~ 60 bpm lots of instrumental low loud
             cout << "4. Victorious" << endl; // D major high energy high tempo
             cout << "5. Angry" << endl; // f major b major very loud high tempo
+            cout << "6. Sleepy" << endl;
             cout << "0. to stop the program" << endl;
 
             cin >> result;
@@ -128,6 +129,8 @@ int main() {
                 ReadCSV(p, "mood", "victory", exp_cont, year, "any");
             else if (result == 5)
                 ReadCSV(p, "mood","angry", exp_cont, year, "any");
+            else if (result == 6)
+                ReadCSV(p, "mood", "sleepy", exp_cont, year, "any");
             else
                 break;
 
@@ -162,6 +165,7 @@ int main() {
             cout << "2. Party" << endl; // high dance
             cout << "3. Workout" << endl; // high energy + high dance + high tempo
             cout << "4. After party" << endl; // mid energy + mid tempo
+            cout << "5. Studying" << endl;
             cin >> result;
 
 
@@ -185,6 +189,8 @@ int main() {
                 ReadCSV(p, "event", "workout", exp_cont, year, "any");
             else if (result == 4)
                 ReadCSV(p, "event", "after party", exp_cont, year, "any");
+            else if (result == 5)
+                ReadCSV(p, "event", "studying", exp_cont, year, "any");
             else {
                 break;
             }
