@@ -233,7 +233,7 @@ void Song::Deserialize(istringstream& stream) {
     getline(stream, token, ','); // ignore release date
 }
 
-Playlist::~Playlist(){
+Playlist::Clear(){
     for (auto& i : songs){
         delete i;
     }
