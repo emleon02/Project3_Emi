@@ -124,16 +124,32 @@ void Song::Deserialize(istringstream& stream) {
     getline(stream, token, ','); // ignore id
 
     getline(stream, this->name, ',');
+    while (name[0] == '\"' && name[name.size() - 1] != '\"'){
+        getline(stream, token, ',');
+        name += token;
+    }
+    name.erase(0, 1);
+    name.erase(name.size() - 2, 1);
 
     getline(stream, this->album, ',');
+    while (album[0] == '\"' && album[album.size() - 1] != '\"'){
+        getline(stream, token, ',');
+        album += token;
+    }
+    album.erase(0, 1);
+    album.erase(album.size() - 2, 1);
 
     getline(stream, token, ','); // ignore album id
 
     getline(stream, token, ',');
     try{
-        token.erase(0, 2);
-        token.erase(token.size() - 2, 2);
         this->artist = token;
+        while (this->artist[artist.size() - 1] != ']'){
+            getline(stream, token, ',');
+            this->artist += token;
+        }
+        artist.erase(0, 2);
+        artist.erase(artist.size() - 3, 2);
     }
     catch (out_of_range&){
         this->artist = "null";
@@ -197,7 +213,7 @@ void Song::Deserialize(istringstream& stream) {
     }
 
     getline(stream, token, ',');
-        // ignore speece
+    // ignore speece
 
     getline(stream, token, ',');
 
@@ -223,8 +239,8 @@ void Song::Deserialize(istringstream& stream) {
     }
 
 
-   getline(stream, token, ',');
-       // ignore duration
+    getline(stream, token, ',');
+    // ignore duration
 
     getline(stream, token, ',');
 
@@ -240,7 +256,7 @@ void Song::Deserialize(istringstream& stream) {
 }
 
 Playlist::~Playlist(){
-    for (const auto& i : songs){
+    for (auto& i : songs){
         delete i;
     }
 
