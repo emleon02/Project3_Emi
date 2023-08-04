@@ -6,7 +6,7 @@
 using namespace std;
 
 void Playlist::Insert(Song* song, const string& option, const string& adj, bool exp, int year, const string& artist){
-    if ((exp != song->exp) || (artist != "any" && artist != song->artist)){
+    if ((!exp && song->exp) || (artist != "any" && artist != song->artist)){
         delete song;
         return;
     }
@@ -20,7 +20,7 @@ void Playlist::Insert(Song* song, const string& option, const string& adj, bool 
             songs.push_back(song);
         }
     }
-     else if (year == 0 || year == song->year) {
+    else if (year == 0 || year == song->year) {
         if (option == "mood") {
             if (adj == "happy" && song->tempo >= 120 && song->tempo <= 140 && song->dance >= 70 && song->energy >= 50 &&
                 song->energy <= 90 && song->valence >= 70 && song->valence <= 90 && song->mode == 1 && song->loud >= -20) {
@@ -40,7 +40,7 @@ void Playlist::Insert(Song* song, const string& option, const string& adj, bool 
                 songs.push_back(song);
             } else if (adj == "angry" && song->tempo >= 130 && song->valence <= 60 && song->valence >= 30 && song->energy >= 50 &&
                 song->energy >= 70 && song->dance >= 70 && song->loud >= -10) {
-                song->rating = song->tempo + song->dance * 100 + song->energy * 100 + song->loud;
+                song->rating = song->tempo + song->dance+ song->energy + song->loud;
                 songs.push_back(song);
             } else if (adj == "sleepy" && song->tempo >= 40 && song->tempo <= 70 && song->dance <= 30 &&
                 song->energy <= 30 && song->loud <= -30 && song->loud >= -60){
@@ -76,7 +76,6 @@ void Playlist::Insert(Song* song, const string& option, const string& adj, bool 
 
     else
         delete song;
-
 }
 
 void Playlist::PrintAll(){
