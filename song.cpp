@@ -151,6 +151,9 @@ void Song::Deserialize(istringstream& stream) {
             artist.erase(0, 1);
             while (artist[artist.size() - 1] != '\"'){
                 getline(stream, token, ',');
+                if (token[token.size() - 2] == ']'){
+                    break;
+                }
                 token.erase(0, 2);
                 token.erase(token.size() - 3, 3);
                 artist += ',' + token;
