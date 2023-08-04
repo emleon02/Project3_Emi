@@ -27,12 +27,12 @@ void ReadCSV(Playlist& p, const string& opt, const string& adj, bool exp, int ye
 }
 
 int main() {
-    Playlist p;
     Playlist p2;
 
     bool on = true;
 
     while(on){
+        Playlist p;
         cout << "How would you like to design your playlist?" << endl;
         cout << "1. Decade" << endl;
         cout << "2. Mood" << endl;
@@ -85,8 +85,7 @@ int main() {
             }
             else
                 p.PrintAll();
-            p.songs.clear();
-            result = 0;
+    
 
             cout << "Merge Sort time: " << timeMerge.count() << " microseconds" << endl;
             cout << "Shell Sort time: " << timeShell.count() << " microseconds" << endl;
@@ -150,9 +149,7 @@ int main() {
             else
                 p.PrintAll();
 
-            p.songs.clear();
-            result = 0;
-
+           
             cout << "Merge Sort time: " << timeMerge.count() << " microseconds" << endl;
             cout << "Shell Sort time: " << timeShell.count() << " microseconds" << endl;
             cout << endl;
@@ -211,8 +208,7 @@ int main() {
             else
                 p.PrintAll();
 
-            p.songs.clear();
-            result = 0;
+           
 
             cout << "Merge Sort time: " << timeMerge.count() << " microseconds" << endl;
             cout << "Shell Sort time: " << timeShell.count() << " microseconds" << endl;
@@ -256,12 +252,12 @@ int main() {
             else
                 p.PrintAll();
 
-            p.songs.clear();
-            result = 0;
-
+           
             cout << "Merge Sort time: " << timeMerge.count() << " microseconds" << endl;
             cout << "Shell Sort time: " << timeShell.count() << " microseconds" << endl;
             cout << endl;
         }
+         result = 0;
+        p.Clear();
     }
 }
