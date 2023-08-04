@@ -129,8 +129,10 @@ void Song::Deserialize(istringstream& stream) {
             getline(stream, token, ',');
             name += ',' + token;
         }
-        name.erase(0, 1);
-        name.erase(name.size() - 2, 1);
+        while (name[0] == '\'' || name[0] == '\"')
+            name.erase(0, 1);
+        while (name[name.size() - 1] == '\'' || name[name.size() - 1] == '\"')
+            name.erase(name.size() - 1, 1);
     }
 
     getline(stream, album, ',');        // get
@@ -139,8 +141,10 @@ void Song::Deserialize(istringstream& stream) {
             getline(stream, token, ',');
             album += ',' + token;
         }
-        album.erase(0, 1);
-        album.erase(album.size() - 2, 1);
+        while (album[0] == '\'' || album[0] == '\"')
+            album.erase(0, 1);
+        while (album[album.size() - 1] == '\'' || album[album.size() - 1] == '\"')
+            album.erase(album.size() - 1, 1);
     }
 
     getline(stream, token, ','); // ignore album id
@@ -151,21 +155,18 @@ void Song::Deserialize(istringstream& stream) {
             artist.erase(0, 1);
             while (artist[artist.size() - 1] != '\"'){
                 getline(stream, token, ',');
-                if (token[token.size() - 2] == ']'){
+                if (token[token.size() - 2] == ']')
                     break;
-                }
-                token.erase(0, 2);
-                token.erase(token.size() - 3, 3);
-                artist += ',' + token;
+                artist += "," + token;
             }
-            artist.erase(token.size() - 2, 3);
         }
-
-        artist.erase(0, 2);
-        artist.erase(artist.size() - 2, 2);
+        while (artist[0] == '\'' || artist[0] == '\"' || artist[0] == '[')
+            artist.erase(0, 1);
+        while (artist[artist.size() - 1] == '\'' || artist[artist.size() - 1] == '\"' || artist[artist.size() - 1] == ']')
+            artist.erase(artist.size() - 1, 1);
     }
     catch (out_of_range&){
-        this->artist = "null";
+        artist = "null";
     }
     getline(stream, token, ','); // ignore artist id
 
