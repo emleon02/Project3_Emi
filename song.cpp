@@ -134,7 +134,7 @@ void Song::Deserialize(istringstream& stream) {
         while (name[name.size() - 1] == '\'' || name[name.size() - 1] == '\"')
             name.erase(name.size() - 1, 1);
     }
-    cout << name;
+
     getline(stream, album, ',');        // get album
     if (album[0] == '\"'){
         while (album[album.size() - 1] != '\"'){   // check if contains commas
