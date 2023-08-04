@@ -28,5 +28,5 @@ public:
     vector<int> Ratings();
     void PrintAll();
     void PrintN(int n);
-    ~Playlist();
+    void Clear();
 };
