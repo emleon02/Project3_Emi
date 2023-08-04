@@ -134,8 +134,8 @@ void Song::Deserialize(istringstream& stream) {
         while (name[name.size() - 1] == '\'' || name[name.size() - 1] == '\"')
             name.erase(name.size() - 1, 1);
     }
-
-    getline(stream, album, ',');        // get
+    cout << name;
+    getline(stream, album, ',');        // get album
     if (album[0] == '\"'){
         while (album[album.size() - 1] != '\"'){   // check if contains commas
             getline(stream, token, ',');
@@ -148,33 +148,33 @@ void Song::Deserialize(istringstream& stream) {
     }
 
     getline(stream, token, ','); // ignore album id
+    while (!isdigit(token[0]))
+        getline(stream, token, ',');
 
-    getline(stream, artist, ',');
-    try{
-        if (artist[0] == '\"'){
-            artist.erase(0, 1);
-            while (artist[artist.size() - 1] != '\"'){
-                getline(stream, token, ',');
-                if (token[token.size() - 2] == ']')
-                    break;
-                artist += "," + token;
-            }
+    getline(stream, artist, ','); // get artist
+    if (artist[0] == '\"'){
+        artist.erase(0, 1);
+        while (artist[artist.size() - 1] != '\"'){
+            getline(stream, token, ',');
+            if (token[token.size() - 2] == ']')
+                break;
+            artist += "," + token;
         }
-        while (artist[0] == '\'' || artist[0] == '\"' || artist[0] == '[')
-            artist.erase(0, 1);
-        while (artist[artist.size() - 1] == '\'' || artist[artist.size() - 1] == '\"' || artist[artist.size() - 1] == ']')
-            artist.erase(artist.size() - 1, 1);
     }
-    catch (out_of_range&){
-        artist = "null";
-    }
+    while (artist[0] == '\'' || artist[0] == '\"' || artist[0] == '[')
+        artist.erase(0, 1);
+    while (artist[artist.size() - 1] == '\'' || artist[artist.size() - 1] == '\"' || artist[artist.size() - 1] == ']')
+        artist.erase(artist.size() - 1, 1);
+    
     getline(stream, token, ','); // ignore artist id
 
     getline(stream, token, ','); // ignore track num
+    while (!isdigit(token[0]))
+        getline(stream, token, ',');
 
     getline(stream, token, ','); // ignore disk num
 
-    getline(stream, token, ',');
+    getline(stream, token, ','); // get if explicit
 
     if (token.size() == 4){
         this->exp = true;
@@ -182,91 +182,55 @@ void Song::Deserialize(istringstream& stream) {
     else
         this->exp = false;
 
-    getline(stream, token, ',');
-
-    try{
-        this->dance = int(stod(token) * 100);
-    }
-    catch (invalid_argument&){
-        this->dance = 0;
-    }
-
-    getline(stream, token, ','); // ignore artist id
-
-    try{
-        this->energy = int(stod(token) * 100);
-    }
-    catch (invalid_argument&){
-        this->energy = 0;
-    }
-
-    getline(stream, token, ',');
-
-    try{
-        this->key = stoi(token);
-    }
-    catch (invalid_argument&){
-        this->key = 0;
-    }
-
-    getline(stream, token, ',');
-
-    try{
-        this->loud = stoi(token);
-    }
-    catch (invalid_argument&){
-        this->loud = 0;
-    }
-
-    getline(stream, token, ',');
-    try{
-        this->mode = stoi(token);
-    }
-    catch (invalid_argument&){
-        this->mode = -1;
-    }
-
-    getline(stream, token, ',');
-    // ignore speece
-
-    getline(stream, token, ',');
-
-    getline(stream, token, ',');
-
-    getline(stream, token, ',');
-
-    getline(stream, token, ',');
-
-    try{
-        this->valence = int(stod(token) * 100);
-    }
-    catch (invalid_argument&){
-        this->valence = 0;
-    }
-
-    getline(stream, token, ',');
-    try{
-        this->tempo = stoi(token);
-    }
-    catch (invalid_argument&){
-        this->tempo = 0;
-    }
+    getline(stream, token, ','); // get danceability
 
 
-    getline(stream, token, ',');
+    dance = int(stod(token) * 100);
+
+    getline(stream, token, ','); // get energy
+
+    energy = int(stod(token) * 100);
+
+
+    getline(stream, token, ','); // get key
+
+    key = stoi(token);
+
+
+    getline(stream, token, ','); // get loudness
+
+    loud = stoi(token);
+
+    getline(stream, token, ','); // get mode
+
+    mode = stoi(token);
+
+
+    getline(stream, token, ','); // ignore speechiness
+
+    getline(stream, token, ','); // ingore acousticness
+
+    getline(stream, token, ','); // ignore instrumental
+
+    getline(stream, token, ','); // ignore liveness
+
+    getline(stream, token, ','); // get valence
+
+    valence = int(stod(token) * 100);
+
+    getline(stream, token, ','); // get tempo
+
+    tempo = stoi(token);
+
+    getline(stream, token, ','); // ignore duration
     // ignore duration
 
-    getline(stream, token, ',');
+    getline(stream, token, ','); // ignore time signiture
 
-    getline(stream, token, ',');
-    try{
-        this->year = stoi(token);
-    }
-    catch (invalid_argument&){
-        this->year = 0;
-    }
+    getline(stream, token, ',');    // get year
+    year = stoi(token);
 
-    getline(stream, token, ',');
+    getline(stream, token, ','); // ignore release date
 }
 
 Playlist::~Playlist(){
