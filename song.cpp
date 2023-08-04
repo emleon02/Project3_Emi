@@ -120,31 +120,37 @@ void Playlist::PrintN(int n){
 }
 
 void Song::Deserialize(istringstream& stream) {
+    cout << "pp";
     string token;
     getline(stream, token, ','); // ignore id
 
-    getline(stream, this->name, ',');
+    getline(stream, name, ',');
     while (name[0] == '\"' && name[name.size() - 1] != '\"'){
+        cout << "vv";
         getline(stream, token, ',');
         name += token;
     }
-    name.erase(0, 1);
-    name.erase(name.size() - 2, 1);
+    if (name[0] == '\"'){
+        name.erase(0, 1);
+        name.erase(name.size() - 2, 1);
+    }
 
-    getline(stream, this->album, ',');
+    getline(stream, album, ',');
     while (album[0] == '\"' && album[album.size() - 1] != '\"'){
         getline(stream, token, ',');
         album += token;
     }
-    album.erase(0, 1);
-    album.erase(album.size() - 2, 1);
+    if (album[0] == '\"'){
+        album.erase(0, 1);
+        album.erase(album.size() - 2, 1);
+    }
 
     getline(stream, token, ','); // ignore album id
 
     getline(stream, token, ',');
     try{
         this->artist = token;
-        while (this->artist[artist.size() - 1] != ']'){
+        while (artist[artist.size() - 1] != ']'){
             getline(stream, token, ',');
             this->artist += token;
         }
