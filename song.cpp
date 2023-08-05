@@ -159,10 +159,18 @@ void Song::Deserialize(istringstream& stream) {
     getline(stream, artist, ','); // get artist
     if (artist[0] == '\"'){
         artist.erase(0, 1);
+        while(artist[artist.size() - 1] == '\'')
+            artist.erase(artist.size() - 1,1);
         while (artist[artist.size() - 1] != '\"'){
             getline(stream, token, ',');
             if (token[token.size() - 2] == ']')
                 break;
+            while(token[0] == '\'')
+                token.erase(0,1);
+            while(token[1] == '\'')
+                token.erase(1,1);
+            while(token[token.size() - 1] == '\'')
+                token.erase(token.size() - 1,1);
             artist += "," + token;
         }
     }
@@ -170,7 +178,7 @@ void Song::Deserialize(istringstream& stream) {
         artist.erase(0, 1);
     while (artist[artist.size() - 1] == '\'' || artist[artist.size() - 1] == '\"' || artist[artist.size() - 1] == ']')
         artist.erase(artist.size() - 1, 1);
-    
+
     getline(stream, token, ','); // ignore artist id
 
     getline(stream, token, ','); // ignore track num
@@ -238,7 +246,7 @@ void Song::Deserialize(istringstream& stream) {
     getline(stream, token, ','); // ignore release date
 }
 
-Playlist::Clear(){
+void Playlist::Clear(){
     for (auto& i : songs){
         delete i;
     }
