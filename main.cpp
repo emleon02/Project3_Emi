@@ -140,7 +140,7 @@ bool check_num_str(const string& str, int num) {
             break;
             // Checking playlist size option
         case 2:
-            if (stoi(str) < 0) {
+            if (stoi(str) < 1) {
                 cout << "Your playlist needs at least 1 song..." << endl << endl;
                 return false;
             }
@@ -272,7 +272,7 @@ int main() {
             }
 
             counter = 1;
-            cout << "How many songs? (10 - 50): " << endl;
+            cout << "How many songs? (1 - 50): " << endl;
             while (num_songs_bool) {
                 cin >> num_songs_option;
                 if (check_num_str(num_songs_option, 2)) {
@@ -380,7 +380,7 @@ int main() {
             }
 
             counter = 1;
-            cout << "How many songs? (10 - 50): " << endl;
+            cout << "How many songs? (1 - 50): " << endl;
             while (num_songs_bool) {
                 cin >> num_songs_option;
                 if (check_num_str(num_songs_option, 2)) {
@@ -497,7 +497,7 @@ int main() {
             }
 
             counter = 1;
-            cout << "How many songs? (10 - 50): " << endl;
+            cout << "How many songs? (1 - 50): " << endl;
             while (num_songs_bool) {
                 cin >> num_songs_option;
                 if (check_num_str(num_songs_option, 2)) {
@@ -524,14 +524,14 @@ int main() {
             }
 
             auto start = chrono::high_resolution_clock::now();
-            ShellSort(p.songs, p.songs.size());
-            auto stop = chrono::high_resolution_clock::now();
-            auto timeShell = chrono::duration_cast<chrono::microseconds>(stop - start);
-
-            start = chrono::high_resolution_clock::now();
             p2.songs = MergeSort(p.songs);
-            stop = chrono::high_resolution_clock::now();
+            auto stop = chrono::high_resolution_clock::now();
             auto timeMerge = chrono::duration_cast<chrono::microseconds>(stop - start);
+            
+            start = chrono::high_resolution_clock::now();
+            ShellSort(p.songs, p.songs.size());
+            stop = chrono::high_resolution_clock::now();
+            auto timeShell = chrono::duration_cast<chrono::microseconds>(stop - start);
 
             cout << endl;
             if (num_songs_option != "all"){
@@ -590,7 +590,7 @@ int main() {
             }
 
             counter = 1;
-            cout << "How many songs? (10 - 50): " << endl;
+            cout << "How many songs? (1 - 50): " << endl;
             while (num_songs_bool) {
                 cin >> num_songs_option;
                 if (check_num_str(num_songs_option, 2)) {
@@ -606,15 +606,16 @@ int main() {
 
             ReadCSV(p, "artist", "any", exp_cont, year, artist);
 
+            
             auto start = chrono::high_resolution_clock::now();
-            ShellSort(p.songs, p.songs.size());
-            auto stop = chrono::high_resolution_clock::now();
-            auto timeShell = chrono::duration_cast<chrono::microseconds>(stop - start);
-
-            start = chrono::high_resolution_clock::now();
             p2.songs = MergeSort(p.songs);
-            stop = chrono::high_resolution_clock::now();
+            auto stop = chrono::high_resolution_clock::now();
             auto timeMerge = chrono::duration_cast<chrono::microseconds>(stop - start);
+            
+            start = chrono::high_resolution_clock::now();
+            ShellSort(p.songs, p.songs.size());
+            stop = chrono::high_resolution_clock::now();
+            auto timeShell = chrono::duration_cast<chrono::microseconds>(stop - start);
 
             cout << endl;
             if (num_songs_option != "all"){
