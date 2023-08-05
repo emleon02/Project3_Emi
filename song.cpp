@@ -6,6 +6,7 @@
 using namespace std;
 
 void Playlist::Insert(Song* song, const string& option, const string& adj, bool exp, int year, const string& artist){
+    // check the if user specified arist, year of explicit content
     if ((!exp && song->exp) || (artist != "any" && artist != song->artist)){
         delete song;
         return;
@@ -16,64 +17,68 @@ void Playlist::Insert(Song* song, const string& option, const string& adj, bool 
         int lower = ((song->year % 100) / 10) * 10;
         int upper = lower + 10;
         if (year%100 >= lower && year%100 <= upper) {
-            song->rating = song->tempo + song->dance + song->energy;
-            songs.push_back(song);
-        }
-    }
-    else if (year == 0 || year == song->year) {
-        if (option == "mood") {
-            if (adj == "happy" && song->tempo >= 120 && song->tempo <= 140 && song->dance >= 70 && song->energy >= 50 &&
-                song->energy <= 90 && song->valence >= 70 && song->valence <= 90 && song->mode == 1 && song->loud >= -20) {
-                song->rating = song->tempo + song->dance + song->energy;
-                songs.push_back(song);
-            } else if (adj == "sad" && song->tempo >= 50 && song->tempo <= 80 && song->energy <= 40 && song->dance <= 40 &&
-                song->valence <= 40 && song->mode == 0 && song->loud <= -30) {
-                song->rating = 180 - song->tempo + (100 - song->loud) + (100 - song->dance) + (100 - song->energy);
-                songs.push_back(song);
-            } else if (adj == "relaxed" && song->tempo >= 60 && song->tempo <= 90 && song->energy >= 10 && song->energy <= 50 &&
-                song->dance <= 40 && song->loud >= -40 && song->loud <= -20 && song->valence >= 30 && song->valence <= 70 && song->mode == 0) {
-                song->rating = 180 - song->tempo + (100 - song->loud) + (100 - song->dance) + (100 - song->energy);
-                songs.push_back(song);
-            } else if (adj == "victory" && song->tempo >= 120 && song->tempo <= 140 && song->valence >= 70 && song->energy >= 50 &&
-                song->energy <= 90 && song->dance >= 70 && song->mode == 1 && song->loud >= -20) {
-                song->rating = song->tempo + song->dance + song->energy;
-                songs.push_back(song);
-            } else if (adj == "angry" && song->tempo >= 130 && song->valence <= 60 && song->valence >= 30 && song->energy >= 50 &&
-                song->energy >= 70 && song->dance >= 70 && song->loud >= -10) {
-                song->rating = song->tempo + song->dance+ song->energy + song->loud;
-                songs.push_back(song);
-            } else if (adj == "sleepy" && song->tempo >= 40 && song->tempo <= 70 && song->dance <= 30 &&
-                song->energy <= 30 && song->loud <= -30 && song->loud >= -60){
-                song->rating = (180 - song->tempo) + (100 - song->dance) + (100 - song->energy);
-                songs.push_back(song);
-            }
-        } else if (option == "event") {
-            if (adj == "dinner" && song->tempo >= 50 && song->tempo <= 90 && song->dance <= 50 && song->energy >= 40 && song->loud >= -40 && song->loud <= -20) {
-                    song->rating = 180 - song->tempo + (100 - song->loud) + (100 - song->dance) + (100 - song->energy);
-                songs.push_back(song);
-            } else if (adj == "party" && song->tempo >= 120 && song->energy >= 80 && song->dance >= 80 && song->valence >= 80 && song->loud >= -20 && song->mode == 1) {
-                song->rating = song->tempo + song->dance + song->energy;
-                songs.push_back(song);
-            } else if (adj == "workout" && song->tempo >= 130 && song->tempo <= 150 && song->valence >= 50 && song->valence <= 90 &&
-                song->energy >= 70 && song->dance >= 50 && song->dance <= 90 && song->loud >= -10 && song->mode == 1) {
-                song->rating = song->tempo + song->dance + song->energy  + song->loud ;
-                songs.push_back(song);
-            } else if (adj == "after party" && song->tempo >= 90 && song->tempo <= 120 && song->dance >= 50 && song->dance <= 80 &&
-                song->energy <= 80 && song->energy >= 40 && song->valence >= 30 && song->valence <= 80 && song->loud >= -20) {
-                song->rating = song->tempo + song->dance + song->energy ;
-                songs.push_back(song);
-            }
-            else if (adj == "studying" && song->tempo <= 100 && song->tempo >= 60 && song->dance <= 40 && song->dance >= 10 &&
-                song->energy >= 10 && song->energy <= 50 && song->loud >= -40 && song->loud <= -20){
-                song->rating = (180 - song->tempo) + (100 - song->dance) + (100 - song->energy);
-                songs.push_back(song);
-            }
-        } else if (option == "artist") {
             song->rating = song->tempo;
             songs.push_back(song);
         }
     }
 
+    // if mood or event type was selected
+    else if (year == 0 || year == song->year) {
+        if (option == "mood") {
+            if (adj == "happy" && song->tempo >= 120 && song->tempo <= 140 && song->dance >= 70 && song->energy >= 50 &&  // high mid energy, valence, dance
+                song->energy <= 90 && song->valence >= 70 && song->valence <= 90 && song->mode == 1 && song->loud >= -20) {
+                // create rating relevant to playlist selection
+                song->rating = song->tempo + song->dance + song->energy;
+                // add song to playlist
+                songs.push_back(song);
+            } else if (adj == "sad" && song->tempo >= 50 && song->tempo <= 80 && song->energy <= 40 && song->dance <= 40 && // low energy, valence, dance
+                song->valence <= 40 && song->mode == 0 && song->loud <= -30) {
+                song->rating = 180 - song->tempo + (100 - song->loud) + (100 - song->dance) + (100 - song->energy);
+                songs.push_back(song);
+            } else if (adj == "relaxed" && song->tempo >= 60 && song->tempo <= 90 && song->energy >= 10 && song->energy <= 50 && // low mid energy, valence, dance
+                song->dance <= 40 && song->loud >= -40 && song->loud <= -20 && song->valence >= 30 && song->valence <= 70 && song->mode == 0) {
+                song->rating = 180 - song->tempo + (100 - song->loud) + (100 - song->dance) + (100 - song->energy);
+                songs.push_back(song);
+            } else if (adj == "victory" && song->tempo >= 120 && song->tempo <= 140 && song->valence >= 70 && song->energy >= 50 && // high energy, valence, dance
+                song->energy <= 90 && song->dance >= 70 && song->mode == 1 && song->loud >= -20) {
+                song->rating = song->tempo + song->dance + song->energy;
+                songs.push_back(song);
+            } else if (adj == "angry" && song->tempo >= 130 && song->valence <= 60 && song->valence >= 30 && song->energy >= 50 && // high energy upbeat, aggressive
+                song->energy >= 70 && song->dance >= 70 && song->loud >= -10) {
+                song->rating = song->tempo + song->dance+ song->energy + song->loud;
+                songs.push_back(song);
+            } else if (adj == "sleepy" && song->tempo >= 40 && song->tempo <= 70 && song->dance <= 30 && // low energy, valence, dance, soft
+                song->energy <= 30 && song->loud <= -30 && song->loud >= -60){
+                song->rating = (180 - song->tempo) + (100 - song->dance) + (100 - song->energy);
+                songs.push_back(song);
+            }
+        } else if (option == "event") {
+            if (adj == "dinner" && song->tempo >= 50 && song->tempo <= 90 && song->dance <= 50 && song->energy >= 40 && song->loud >= -40 && song->loud <= -20) { // relaxed with more vibes
+                    song->rating = 180 - song->tempo + (100 - song->loud) + (100 - song->dance) + (100 - song->energy);
+                songs.push_back(song);
+            } else if (adj == "party" && song->tempo >= 120 && song->energy >= 80 && song->dance >= 80 && song->valence >= 80 && song->loud >= -20 && song->mode == 1) { // happier verison of happy
+                song->rating = song->tempo + song->dance + song->energy;
+                songs.push_back(song);
+            } else if (adj == "workout" && song->tempo >= 130 && song->tempo <= 150 && song->valence >= 50 && song->valence <= 90 &&  // softer angry
+                song->energy >= 70 && song->dance >= 50 && song->dance <= 90 && song->loud >= -10 && song->mode == 1) {
+                song->rating = song->tempo + song->dance + song->energy  + song->loud ;
+                songs.push_back(song);
+            } else if (adj == "after party" && song->tempo >= 90 && song->tempo <= 120 && song->dance >= 50 && song->dance <= 80 && // fun happy party but a little relaxed
+                song->energy <= 80 && song->energy >= 40 && song->valence >= 30 && song->valence <= 80 && song->loud >= -20) {
+                song->rating = song->tempo + song->dance + song->energy ;
+                songs.push_back(song);
+            }
+            else if (adj == "studying" && song->tempo <= 100 && song->tempo >= 60 && song->dance <= 40 && song->dance >= 10 && // more fun sleeping
+                song->energy >= 10 && song->energy <= 50 && song->loud >= -40 && song->loud <= -20){
+                song->rating = (180 - song->tempo) + (100 - song->dance) + (100 - song->energy);
+                songs.push_back(song);
+            }
+        } else if (option == "artist") { // check if user selected artist
+            song->rating = song->tempo;
+            songs.push_back(song);
+        }
+    }
+    // if song is not applicable
     else
         delete song;
 }
